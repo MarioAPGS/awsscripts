@@ -28,7 +28,7 @@ def clean_acl_by_object(acl) -> Result:
 
     try:
         acl_id = acl['NetworkAclId']
-        entries = list(filter(lambda x: (x['RuleNumber'] >= 1 and x['RuleNumber'] <= 32766), acl['Entries']))
+        entries = list(filter(lambda x: (x['RuleNumber'] >= 1 and x['RuleNumber'] <= 32766 and not x['Egress']), acl['Entries']))
         
         count = 0
         print(f"Cleaning {len(entries)} entries")

@@ -1,5 +1,5 @@
 import boto3
-from models.Result import Result 
+from models.Result import Result
 
 def change_security_groups(instance_id: str, security_group_id: list[str]) -> Result:
     ec2_client = boto3.client('ec2')
@@ -116,6 +116,9 @@ def add_security_group_entry_rules_by_id(security_group_id: str, ips: list[str])
 
 def add_security_group_entry_rules_by_name(group_name: str, ips: list[str], description: str = "", vpc_id: str = "", create: bool = False) -> Result:
 
-    security_group = get_security_group(group_name, description, vpc_id, create)
-    group_id = security_group.response['GroupId']
-    return add_security_group_entry_rules_by_id(group_id, ips)
+    security_group_request = get_security_group(group_name, description, vpc_id, create)
+    if security_group_request.success:
+        group_id = security_group_request.response['GroupId']
+        return add_security_group_entry_rules_by_id(group_id, ips)
+    else:
+        return security_group_request
