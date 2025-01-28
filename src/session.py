@@ -1,5 +1,7 @@
-import boto3
 import csv
+
+import boto3
+
 
 def config_session():
     profile="default"
@@ -12,7 +14,7 @@ def session(credentials_path: str | None):
     if credentials_path == None or credentials_path == "":
         credentials_path = "../credentials/marioapgs_accessKeys.csv"
 
-    with open(credentials_path, 'r', newline='') as csvfile:
+    with open(credentials_path, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             access_key_id = row['\ufeffAccess key ID']
@@ -24,4 +26,3 @@ def session(credentials_path: str | None):
         aws_secret_access_key=secret_access_key
     )
 
-        

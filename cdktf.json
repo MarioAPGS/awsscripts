@@ -1,0 +1,12 @@
+{
+  "language": "python",
+  "app": "uv run python ./main.py",
+  "projectId": "9840b87b-25f8-4b30-8389-58904f6b34ed",
+  "sendCrashReports": "false",
+  "terraformProviders": [],
+  "terraformModules": [],
+  "codeMakerOutput": "imports",
+  "context": {
+
+  }
+}

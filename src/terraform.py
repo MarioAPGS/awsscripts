@@ -4,7 +4,6 @@ import urllib
 
 import boto3
 
-
 # Version of Terraform that we're using
 TERRAFORM_VERSION = '1.6.6'
 

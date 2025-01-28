@@ -1,4 +1,5 @@
 import boto3
+
 from models.Result import Result
 
 
@@ -13,7 +14,7 @@ def clean_acl_by_name(acl_name: str)  -> Result:
             print(f"ACL group '{acl_name}' does not exist.")
             return
         result = clean_acl_by_object(response['NetworkAcls'][0])
-        
+
     except Exception as e:
         result = Result(False, {}, str(e))
 
@@ -22,14 +23,14 @@ def clean_acl_by_name(acl_name: str)  -> Result:
         return result
 
 
-def clean_acl_by_object(acl) -> Result: 
+def clean_acl_by_object(acl) -> Result:
     ec2_client = boto3.client('ec2')
     result = Result()
 
     try:
         acl_id = acl['NetworkAclId']
         entries = list(filter(lambda x: (x['RuleNumber'] >= 1 and x['RuleNumber'] <= 32766 and not x['Egress']), acl['Entries']))
-        
+
         count = 0
         print(f"Cleaning {len(entries)} entries")
         for entry in entries:
@@ -48,11 +49,11 @@ def clean_acl_by_object(acl) -> Result:
     finally:
         ec2_client.close()
         return result
-    
+
 
 
 def add_acls(acl_name: str, ip_ranges: list[str]) -> Result:
-    
+
     ec2_client = boto3.client('ec2')
     result = Result()
     result.response = {"errors": {}}
@@ -62,11 +63,11 @@ def add_acls(acl_name: str, ip_ranges: list[str]) -> Result:
 
         if 'NetworkAcls' not in response or not response['NetworkAcls']:
             return Result(False, {}, f"ACL group '{acl_name}' does not exist.")
-        
+
         clean_result = clean_acl_by_object(response['NetworkAcls'][0])
         if not clean_result.success:
             return clean_result
-        
+
         acl_id = response['NetworkAcls'][0]['NetworkAclId']
 
         start=100
@@ -92,7 +93,7 @@ def add_acls(acl_name: str, ip_ranges: list[str]) -> Result:
             except Exception as e:
                 isAnyError = True
                 result.response["errors"][range] = str(e)
-                print(f"[{i+1}/{len(ip_ranges)}] Error {range}: {str(e)}")
+                print(f"[{i+1}/{len(ip_ranges)}] Error {range}: {e!s}")
         result = Result(not isAnyError, result.response, "")
 
     except Exception as e:

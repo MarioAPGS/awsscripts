@@ -1,5 +1,5 @@
+
 import hvac
-import json
 
 client = hvac.Client(
     url='https://18.135.61.61:8200',

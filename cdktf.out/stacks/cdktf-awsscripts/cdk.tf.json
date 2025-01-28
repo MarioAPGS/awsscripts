@@ -1,0 +1,18 @@
+{
+  "//": {
+    "metadata": {
+      "backend": "local",
+      "stackName": "cdktf-awsscripts",
+      "version": "0.20.9"
+    },
+    "outputs": {
+    }
+  },
+  "terraform": {
+    "backend": {
+      "local": {
+        "path": "/hdd/projects/awsscripts/terraform.cdktf-awsscripts.tfstate"
+      }
+    }
+  }
+}

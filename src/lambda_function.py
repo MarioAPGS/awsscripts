@@ -1,6 +1,5 @@
-import json
-import boto3
-from setup_bucket import configure_bucket_permission, delete_bucket_permission
+from setup_bucket import configure_bucket_permission
+
 
 def lambda_handler():
     bucket_name = 'imelios'

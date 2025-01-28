@@ -1,6 +1,8 @@
-import boto3 
-from iam_policy import get_policy, create_policy, delete_policy
-from iam_groups import get_group, create_group, delete_group
+import boto3
+
+from iam_groups import create_group, delete_group, get_group
+from iam_policy import create_policy, delete_policy, get_policy
+
 
 def get_bucket_read_policy(bucket_name: str) -> dict:
     return {
@@ -106,11 +108,11 @@ def delete_bucket_permission(bucket_name: str, account_id: str):
     if get_policy(account_id, f"S3{bucket_name}R").success:
         output = delete_policy(account_id, f"S3{bucket_name}R")
         print(output.success, f"Delete policy: S3{bucket_name}R")
-    
+
     if get_policy(account_id, f"S3{bucket_name}W").success:
         output = delete_policy(account_id, f"S3{bucket_name}W")
         print(output.success, f"Delete policy: S3{bucket_name}W")
-    
+
     if get_policy(account_id, f"S3{bucket_name}D").success:
         output = delete_policy(account_id, f"S3{bucket_name}D")
         print(output.success, f"Delete policy: S3{bucket_name}D")

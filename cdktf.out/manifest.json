@@ -1,0 +1,16 @@
+{
+  "stacks": {
+    "cdktf-awsscripts": {
+      "annotations": [
+      ],
+      "constructPath": "cdktf-awsscripts",
+      "dependencies": [
+      ],
+      "name": "cdktf-awsscripts",
+      "stackMetadataPath": "stacks/cdktf-awsscripts/metadata.json",
+      "synthesizedStackPath": "stacks/cdktf-awsscripts/cdk.tf.json",
+      "workingDirectory": "stacks/cdktf-awsscripts"
+    }
+  },
+  "version": "0.20.9"
+}

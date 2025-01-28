@@ -1,6 +1,7 @@
-import json
 import boto3
+
 from models.Result import Result
+
 
 def get_group(group_name: str) -> Result:
     iam_client = boto3.client('iam')
@@ -9,7 +10,7 @@ def get_group(group_name: str) -> Result:
     result = Result()
     try:
         result.response = iam_client.get_group(GroupName=group_name)
-        
+
     except Exception as e:
         result = Result(False, {}, str(e))
 
@@ -22,7 +23,7 @@ def create_group(account_id: str, name: str, policy_name_list: list[str]):
     result = Result()
     try:
         iam_client = boto3.client('iam')
-    
+
         result.response = iam_client.create_group(GroupName=name)
 
         for policy_name in policy_name_list:
